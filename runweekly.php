@@ -21,7 +21,7 @@ foreach ($config['realtime'] as $dir => $active) {
   $filename = ROOT_DIR.$dir.'/realtime.txt';
   $source = incr_to_target($filename);
   $dest = file_with_date($filename);
-  if(do_weekly_backup($source, $dest)){
+  if(do_full_backup($source, $dest)){
     unlink(incr_to_target($filename));
     $status[$dir] = [
       'dest' => $dest,
@@ -44,7 +44,8 @@ foreach ($config['downld08'] as $dir => $active) {
   };
 
   $filename = ROOT_DIR.$dir.'/downld08.txt';
-  $res = do_full_backup($filename, file_with_date($filename));
+  $dest = file_with_date($filename);
+  $res = do_full_backup($filename, $dest);
   $status[$dir] = [
     'dest' => $dest,
     'status' => true
